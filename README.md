@@ -31,9 +31,9 @@ Implement `#my_select`, `#my_reject`, `#my_find`.
 
 Let's get a little more interesting, implement `#my_map`.
 
-##Stretch: Implement reduce
+##Stretch: Implement reduce & all?
 
-Optional. Make the `pending` test for `#my_reduce` active in the spec and create a reduce method that satisfies the expectation.
+Optional. Make the `pending` tests for `#my_reduce` and `#my_all?` active in the spec and create methods that satisfy the expectation.
 
 ##Resources
 

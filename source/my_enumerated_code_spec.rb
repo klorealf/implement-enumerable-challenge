@@ -18,13 +18,6 @@ describe Array do
     end
   end
 
-  describe '#my_find' do
-    it 'should find the first element matching the condition' do
-      four = sample_array.my_find { |element| element == 4 }
-      expect(four).to eq(4)
-    end
-  end
-
   describe '#my_select' do
     it 'should produce a new array of elements matching the condition' do
       evens = sample_array.my_select { |element| element.even? }
@@ -39,6 +32,13 @@ describe Array do
     end
   end
 
+  describe '#my_find' do
+    it 'should find the first element matching the condition' do
+      four = sample_array.my_find { |element| element == 4 }
+      expect(four).to eq(4)
+    end
+  end
+
   describe '#my_map' do
     it 'should produce a new array with the block applied to each element' do
       doubles = sample_array.my_map { |element| element * 2 }
@@ -50,6 +50,13 @@ describe Array do
     it 'should reduce an array using block' do
       sum = sample_array.my_reduce(0) { |total, element| total + element }
       expect(sum).to eq(15)
+    end
+  end
+
+  pending '#my_all?' do
+    it 'should return true if block is true for all elements' do
+      expect(sample_array.my_all? {|element| element.is_a? Fixnum}).to be(true)
+      expect(sample_array.my_all? {|element| element.is_a? String}).to be(false)
     end
   end
 end
