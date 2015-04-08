@@ -46,7 +46,7 @@ describe Array do
     end
   end
 
-  describe '#my_reduce' do
+  pending '#my_reduce' do
     it 'should reduce an array using block' do
       sum = sample_array.my_reduce(0) { |total, element| total + element }
       expect(sum).to eq(15)
@@ -58,7 +58,7 @@ describe Array do
     end
   end
 
-  describe '#my_all?' do
+  pending '#my_all?' do
     it 'should return true if block is true for all elements' do
       expect(sample_array.my_all? { |element| element.is_a? String }).to be(false)
     end
