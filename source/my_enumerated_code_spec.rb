@@ -51,12 +51,24 @@ describe Array do
       sum = sample_array.my_reduce(0) { |total, element| total + element }
       expect(sum).to eq(15)
     end
+
+    it 'should work for different types of operations in the block' do
+      sum = sample_array.my_reduce(1) { |total, element| total * element }
+      expect(sum).to eq(120)
+    end
   end
 
   pending '#my_all?' do
     it 'should return true if block is true for all elements' do
-      expect(sample_array.my_all? {|element| element.is_a? Fixnum}).to be(true)
-      expect(sample_array.my_all? {|element| element.is_a? String}).to be(false)
+      expect(sample_array.my_all? { |element| element.is_a? Integer }).to be(true)
+    end
+
+    it 'should return false if block is false for at least one element' do
+      expect(sample_array.my_all? { |element| element.is_a? String }).to be(false)
+    end
+
+    it 'always returns true or false depending on the truthiness of the block' do
+      expect(sample_array.my_all? { |element| "not a condition, but still truthy" }).to be(true)
     end
   end
 end
