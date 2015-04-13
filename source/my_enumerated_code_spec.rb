@@ -60,7 +60,7 @@ describe Array do
 
   pending '#my_all?' do
     it 'should return true if block is true for all elements' do
-      expect(sample_array.my_all? { |element| element.is_a? String }).to be(false)
+      expect(sample_array.my_all? { |element| element.is_a? Integer }).to be(true)
     end
 
     it 'should return false if block is false for at least one element' do
