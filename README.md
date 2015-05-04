@@ -50,7 +50,7 @@ We'll be writing our own enumerable methods in the `MyEnumerable` module (see fi
 
 ### Do Not Use Enumerable Methods
 
-`my_enumerable_spec.rb` contains tests for all the methods we'll be implementing. Focus on making one test pass at a time. Note that in the tests, the Ruby `Enumerable` methods themselves are banned, that would be too easy!
+The file `spec/my_enumerable_spec.rb` contains tests for all the methods we'll be implementing. Focus on making one test pass at a time. Note that in the tests, the Ruby `Enumerable` methods themselves are banned, that would be too easy!
 
 In defining our methods, we may call any method that begins with `my_`.  `MyArray#my_each` is already implemented for us, and we'll need to make use of it in the methods we write.  Some of the methods can be implemented in terms of *each other*. For example, `#my_select` and `#my_find` do similar things, can we leverage that?
 

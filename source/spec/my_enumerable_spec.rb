@@ -1,4 +1,5 @@
-require_relative('my_enumerated_code')
+require_relative('../my_enumerable')
+require_relative('../my_array')
 
 describe Array do
   let(:sample_array) { [1,2,3,4,5] }
