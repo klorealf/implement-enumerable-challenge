@@ -1,5 +1,7 @@
 require_relative "spec_helper"
 
+include MyArrayEnumerableBehaviorTestSetup
+
 describe MyArray do
   describe '#my_each' do
     it 'iterates over each element, passing it to the supplied block' do
