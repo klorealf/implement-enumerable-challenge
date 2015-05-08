@@ -48,7 +48,14 @@ The test setup for this challenge is more advanced than we're used to.  A good b
 
 We're new to testing and working with RSpec.  But, when we test a mixin like our `MyEnumerable` module, it's often helpful to use [shared examples](https://www.relishapp.com/rspec/rspec-core/docs/example-groups/shared-examples).  Defining shared examples creates a group of tests that can be used in other places.  We have shared examples called `"a my_enumerable object"` defined in `spec/support/my_enumerable_behaviors.rb`.  These describe the behaviors of objects that mix in the `MyEnumerable` module.  We use them in `spec/my_array.rb` to specify that a `MyArray` object `it_behaves_like "a my_enumerable object"`.  We could use this same shared examples group in any class that mixes in `MyEnumerable`.
 
-We'll also be working with [tags](https://www.relishapp.com/rspec/rspec-core/v/2-4/docs/command-line/tag-option).  Each challenge release will have its own tag, so that we can run only the tests tagged for the release we're working on.
+```ruby
+describe '#my_find', { release: 0 } do
+  # Individual tests here ...
+end
+```
+*Figure 2*.  Tagging an RSpec example group.
+
+We'll also be working with [tags](https://www.relishapp.com/rspec/rspec-core/v/2-4/docs/command-line/tag-option).  Each challenge release will have its own tag, so that we can run only the tests tagged for the release we're working on.  In Figure 2, we can see that the example group `#my_find` has been given a tag:  `{ release: 0 }`.  As we'll see, this tag will allow us to run specific tests rather than the entire test suite.
 
 
 ##Releases
