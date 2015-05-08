@@ -180,16 +180,16 @@ For starters, we'll want to be able to call the method passing arguments and a b
 
 If choosing to write the `#my_reduce?` method, we'll need to make a change to the file `spec/support/my_enumerable_behaviors.rb`. The examples for `#my_reduce` are organized by by the `pending` method.  Switch `pending` to `describe` and we'll be ready to begin.
 
-| my_array             | arguments   | block                                  | expected result |
-| :------------------- | :---------- | :------------------------------------- | :-------------- |
-| `["a", "ab", "abc"]` |             | `{ |aggregate, str| aggregate + str }` | `"aababc"`      |
-| `["a", "ab", "abc"]` | `:+`        |                                        | `"aababc"`      |
-| `["a", "ab", "abc"]` | `"ZZZ"`     | `{ |aggregate, str| aggregate + str }` | `"ZZZaababc"`   |
-| `["a", "ab", "abc"]` | `"ZZZ", :+` |                                        | `"ZZZaababc"`   |
-| `[1, 2, 3]`          |             | `{ |aggregate, num| aggregate * num }` | `6`             |
-| `[1, 2, 3]`          | `:*`        |                                        | `6`             |
-| `[1, 2, 3]`          | `100`       | `{ |aggregate, num| aggregate * num }` | `600`           |
-| `[1, 2, 3]`          | `100, :*`   |                                        | `600`           |
+| my_array             | arguments   | block                        | expected result |
+| :------------------- | :---------- | :--------------------------- | :-------------- |
+| `["a", "ab", "abc"]` |             | `{ |memo, str| memo + str }` | `"aababc"`      |
+| `["a", "ab", "abc"]` | `:+`        |                              | `"aababc"`      |
+| `["a", "ab", "abc"]` | `"ZZZ"`     | `{ |memo, str| memo + str }` | `"ZZZaababc"`   |
+| `["a", "ab", "abc"]` | `"ZZZ", :+` |                              | `"ZZZaababc"`   |
+| `[1, 2, 3]`          |             | `{ |memo, num| memo * num }` | `6`             |
+| `[1, 2, 3]`          | `:*`        |                              | `6`             |
+| `[1, 2, 3]`          | `100`       | `{ |memo, num| memo * num }` | `600`           |
+| `[1, 2, 3]`          | `100, :*`   |                              | `600`           |
 
 *Table 6*.  Test expectations for `#my_reduce`.
 
