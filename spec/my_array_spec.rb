@@ -6,11 +6,11 @@ describe MyArray do
   before(:each) do
     banned_methods = Enumerable.public_instance_methods + [:each]
     banned_methods.each do |banned_method|
-      allow(object).to receive(banned_method) { raise "You used the Ruby method #{banned_method}; Do not use Ruby's built-in Enumearble methods or #each." }
+      allow_any_instance_of(MyArray).to receive(banned_method) { raise "You used the Ruby method #{banned_method}; Do not use Ruby's built-in Enumearble methods or #each." }
     end
   end
 
-  describe '#my_each' do
+  describe 'my_each' do
     it 'iterates over each element, passing it to the supplied block' do
       my_array = MyArray.new
       my_array << 1
@@ -43,7 +43,7 @@ describe MyArray do
       numbers
     end
 
-    describe '#my_find' do
+    describe 'my find method' do
       it 'returns the first element for which the block returns truthy' do
         found_string = strings.my_find { |string| string =~ /ab/ }
         expect(found_string).to eq 'ab'
@@ -61,7 +61,7 @@ describe MyArray do
       end
     end
 
-    describe '#my_map' do
+    describe 'my map method' do
       it 'produces a new array containing the results of running the block for each element' do
         mapped_strings = strings.my_map { |string| string[0] }
         expect(mapped_strings).to match_array ['a', 'a', 'a']
@@ -71,7 +71,7 @@ describe MyArray do
       end
     end
 
-    describe '#my_reject' do
+    describe 'my reject method' do
       it "produces a new array containing the elements for which the block returns falsey" do
         non_rejected_strings = strings.my_reject { |string| string.length < 3 }
         expect(non_rejected_strings).to match_array ['abc']
@@ -81,7 +81,7 @@ describe MyArray do
       end
     end
 
-    describe '#my_select' do
+    describe 'my select method' do
       it 'produces a new array containing the elements for which the block returns truthy' do
         selected_strings = strings.my_select { |string| string.length < 3 }
         expect(selected_strings).to match_array ['a', 'ab']
@@ -91,7 +91,7 @@ describe MyArray do
       end
     end
 
-    pending '#my_all?' do
+    pending 'my all method?' do
       it 'returns true if block returns a truthy value for all elements' do
         boolean_for_strings = strings.my_all? { |string| string.length < 10 }
         expect(boolean_for_strings).to be true
@@ -117,7 +117,7 @@ describe MyArray do
       end
     end
 
-    pending '#my_reduce' do
+    pending 'my reduce method' do
       it "aggregates a value when only a block is passed" do
         aggregated_strings = strings.my_reduce { |aggregate, string| aggregate + string }
         expect(aggregated_strings).to eq 'aababc'
