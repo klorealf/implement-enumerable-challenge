@@ -91,7 +91,7 @@ describe MyArray do
       end
     end
 
-    pending 'my all method?' do
+    pending 'my all? method' do
       it 'returns true if block returns a truthy value for all elements' do
         boolean_for_strings = strings.my_all? { |string| string.length < 10 }
         expect(boolean_for_strings).to be true
