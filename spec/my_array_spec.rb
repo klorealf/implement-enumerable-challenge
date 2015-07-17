@@ -133,6 +133,10 @@ describe MyArray do
         aggregated_numbers = numbers.my_reduce(100) { |aggregate, number| aggregate * number }
         expect(aggregated_numbers).to eq 600
       end
+
+      it 'does not not change the my_array object' do
+        expect { strings.my_reduce { |aggregate, string| aggregate + string } }.to_not change { strings }
+      end
     end
   end
 end
