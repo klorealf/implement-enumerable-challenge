@@ -91,7 +91,7 @@ describe MyArray do
       end
     end
 
-    pending 'my all? method' do
+    describe 'my all? method' do
       it 'returns true if block returns a truthy value for all elements' do
         boolean_for_strings = strings.my_all? { |string| string.length < 10 }
         expect(boolean_for_strings).to be true
@@ -117,7 +117,7 @@ describe MyArray do
       end
     end
 
-    pending 'my reduce method' do
+    describe 'my reduce method' do
       it "aggregates a value when only a block is passed" do
         aggregated_strings = strings.my_reduce { |aggregate, string| aggregate + string }
         expect(aggregated_strings).to eq 'aababc'
