@@ -16,10 +16,6 @@ module MyEnumerable
   end
 
   # Coding #my_reduce is optional.
-  # You may change the number of arguments
-  # that the method accepts, if you choose,
-  # but the method will need to accept
-  # 0 - 2 arguments.
-  def my_reduce(arg_1 = nil, arg_2 = nil)
+  def my_reduce(starting_value = nil)
   end
 end
