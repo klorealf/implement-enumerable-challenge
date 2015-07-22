@@ -1,29 +1,7 @@
 require_relative "spec_helper"
 
 describe MyArray do
-  # This ensures that solutions do not make use of
-  # Ruby's built in each method and enumerable methods.
-  before(:each) do
-    banned_methods = Enumerable.public_instance_methods + [:each]
-    banned_methods.each do |banned_method|
-      allow_any_instance_of(MyArray).to receive(banned_method) { raise "You used the Ruby method #{banned_method}; Do not use Ruby's built-in Enumearble methods or #each." }
-    end
-  end
-
-  describe 'my_each' do
-    it 'iterates over each element, passing it to the supplied block' do
-      my_array = MyArray.new
-      my_array << 1
-      my_array << 2
-
-      expect { |block| my_array.my_each &block }.to yield_successive_args(1, 2)
-    end
-  end
-
   describe 'behaviors from the MyEnumerable module' do
-    before(:all) do
-      raise 'MyArray class must implement my_each for the MyEnumerable module to work' unless MyArray.new.respond_to?(:my_each)
-    end
 
     # Create a MyArray object that looks like ['a', 'ab', 'abc']
     let(:strings) do
@@ -138,5 +116,34 @@ describe MyArray do
         expect { strings.my_reduce { |aggregate, string| aggregate + string } }.to_not change { strings }
       end
     end
+
+    before(:all) do
+      raise 'MyArray class must implement my_each for the MyEnumerable module to work' unless MyArray.new.respond_to?(:my_each)
+    end
   end
+
+
+  # Ignore the tests below.
+
+  # This ensures that solutions do not make use of
+  # Ruby's built in each method and enumerable methods.
+  before(:each) do
+    banned_methods = Enumerable.public_instance_methods + [:each]
+    banned_methods.each do |banned_method|
+      allow_any_instance_of(MyArray).to receive(banned_method) { raise "You used the Ruby method #{banned_method}; Do not use Ruby's built-in Enumearble methods or #each." }
+    end
+  end
+
+
+  # This ensures that the provided MyArray#my_each method behaves as expected
+  describe 'my_each' do
+    it 'iterates over each element, passing it to the supplied block' do
+      my_array = MyArray.new
+      my_array << 1
+      my_array << 2
+
+      expect { |block| my_array.my_each &block }.to yield_successive_args(1, 2)
+    end
+  end
+
 end
