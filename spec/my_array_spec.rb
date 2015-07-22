@@ -41,11 +41,11 @@ describe MyArray do
 
     describe 'my map method' do
       it 'produces a new array containing the results of running the block for each element' do
-        mapped_strings = strings.my_map { |string| string[0] }
-        expect(mapped_strings).to match_array ['a', 'a', 'a']
+        mapped_strings = strings.my_map { |string| string.upcase }
+        expect(mapped_strings).to match_array ['A', 'AB', 'ABC']
 
-        mapped_numbers = numbers.my_map { |number| number - number }
-        expect(mapped_numbers).to match_array [0, 0, 0]
+        mapped_numbers = numbers.my_map { |number| number * 2 }
+        expect(mapped_numbers).to match_array [2, 4, 6]
       end
     end
 
