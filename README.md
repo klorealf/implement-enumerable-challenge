@@ -100,7 +100,7 @@ $ rspec --example "my all? method"
 Tests for the behavior of the `#my_all?` method have been written to mimic the behavior of Ruby's [`Enumerable#all?`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-all-3F).
 
 
-### Release 5 (*optional*): Write the `#my_reduce?` method
+### Release 5 (*optional*): Write the `#my_reduce` method
 ```
 $ rspec --example "my reduce method"
 ```
