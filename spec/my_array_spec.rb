@@ -130,7 +130,7 @@ describe MyArray do
   before(:each) do
     banned_methods = Enumerable.public_instance_methods + [:each]
     banned_methods.each do |banned_method|
-      allow_any_instance_of(MyArray).to receive(banned_method) { raise "You used the Ruby method #{banned_method}; Do not use Ruby's built-in Enumearble methods or #each." }
+      allow_any_instance_of(MyArray).to receive(banned_method) { raise "You used the Ruby method ##{banned_method}; Do not use Ruby's built-in Enumerable methods or #each." }
     end
   end
 
