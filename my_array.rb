@@ -1,4 +1,5 @@
-class MyArray < Array
+require_relative 'my_enumerable'
+class Array
   include MyEnumerable
 
    def my_each
