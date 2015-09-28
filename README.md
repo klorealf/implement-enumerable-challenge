@@ -11,7 +11,7 @@ This challenge assumes that we're at least somewhat familiar with Ruby's `Enumer
 ### Blocks
 When we call most enumerable methods, we generally pass a block.  The enumerable methods themselves are pretty generic and are made to be used in different circumstances.  For example, `Enumerable#reject` will return a subset of a collection where some condition is not met.
 
-Given a collection of numbers, I could use `#reject` to get a new collection where all of the even numbers were removed:
+Given a collection of numbers, we could use `#reject` to get a new collection where all of the even numbers were removed:
 
 ```ruby
 [1,2,3].reject { |number| number.even? }
@@ -19,7 +19,7 @@ Given a collection of numbers, I could use `#reject` to get a new collection whe
 ```
 *Figure 1*.  Example using `Enumerable#reject`.
 
-But I could also use `#reject` with a collection of arrays to reject the arrays with more than five elements.  Or with a collection of ... well, a collection of any objects ...
+But we could also use `#reject` with a collection of arrays to reject the arrays with more than five elements.  Or with a collection of ... well, a collection of any objects ...
 
 We use the blocks to define the specifics for how the enumerable method should run.  Each element in the collection is passed to the block, and the block is evaluated.  In Figure 1, `1`, `2`, and `3` were each passed to the block as `number`.  Of course, each method will do something different with the values returned from the block.
 
@@ -30,7 +30,7 @@ As we write our versions of the enumerable methods, we'll want to understand how
 * [The Building Blocks of Ruby](http://yehudakatz.com/2010/02/07/the-building-blocks-of-ruby/)
 
 
-### Restrictions:  Do Not Use Array and Enumerable Methods
+### Restrictions:  Do Not Use Most Array and Enumerable Methods
 ```ruby
 numbers = [1, 6, 3, 7, 9]
 # => [1, 6, 3, 7, 9]
