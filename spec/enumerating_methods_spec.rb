@@ -17,7 +17,7 @@ describe 'enumerating behaviors' do
     end
   end
 
-  describe 'finding an element' do
+  describe 'find' do
     it 'returns the first element for which the block returns truthy' do
       found_string = find(strings) { |string| string =~ /ab/ }
       expect(found_string).to eq 'ab'
@@ -35,7 +35,7 @@ describe 'enumerating behaviors' do
     end
   end
 
-  describe 'mapping values' do
+  describe 'map' do
     it 'produces a new array containing the results of running the block for each element' do
       mapped_strings = map(strings) { |string| string.upcase }
       expect(mapped_strings).to eq ['A', 'AB', 'ABC']
@@ -45,7 +45,7 @@ describe 'enumerating behaviors' do
     end
   end
 
-  describe 'rejecting values' do
+  describe 'reject' do
     it 'produces a new array containing the elements for which the block returns falsey' do
       non_rejected_strings = reject(strings) { |string| string.length < 3 }
       expect(non_rejected_strings).to match_array ['abc']
@@ -55,7 +55,7 @@ describe 'enumerating behaviors' do
     end
   end
 
-  describe 'selecting values' do
+  describe 'select' do
     it 'produces a new array containing the elements for which the block returns truthy' do
       selected_strings = select(strings) { |string| string.length < 3 }
       expect(selected_strings).to match_array ['a', 'ab']
@@ -65,7 +65,7 @@ describe 'enumerating behaviors' do
     end
   end
 
-  describe 'determing if all elements meet a condition' do
+  describe 'all?' do
     it 'returns true if block returns a truthy value for all elements' do
       boolean_for_strings = all?(strings) { |string| string.length < 10 }
       expect(boolean_for_strings).to be true
@@ -91,7 +91,7 @@ describe 'enumerating behaviors' do
     end
   end
 
-  describe 'aggregating values' do
+  describe 'reduce' do
     it "aggregates a value" do
       aggregated_strings = reduce(strings) { |aggregate, string| aggregate + string }
       expect(aggregated_strings).to eq 'aababc'
