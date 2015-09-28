@@ -2,7 +2,9 @@ require_relative '../enumerating_methods'
 
 describe 'enumerating behaviors' do
 
-  # The only Ruby methods we may call on an array are :length and :[] to get an element at a specific index
+  # The only Ruby methods we may call on an array are
+  # :length to get the number of elements in the array
+  # and :[] to get an element at a specific index.
   banned_methods = Enumerable.instance_methods(false) + Array.instance_methods(false) - [:[], :length]
 
   let(:strings) { ['a', 'ab', 'abc'] }
