@@ -47,16 +47,6 @@ describe 'enumerating behaviors' do
     end
   end
 
-  describe 'reject' do
-    it 'produces a new array containing the elements for which the block returns falsey' do
-      non_rejected_strings = reject(strings) { |string| string.length < 3 }
-      expect(non_rejected_strings).to match_array ['abc']
-
-      non_rejected_numbers = reject(numbers) { |number| number > 2 }
-      expect(non_rejected_numbers).to match_array [1, 2]
-    end
-  end
-
   describe 'select' do
     it 'produces a new array containing the elements for which the block returns truthy' do
       selected_strings = select(strings) { |string| string.length < 3 }
@@ -64,6 +54,16 @@ describe 'enumerating behaviors' do
 
       selected_numbers = select(numbers) { |number| number > 2 }
       expect(selected_numbers).to match_array [3]
+    end
+  end
+
+  describe 'reject' do
+    it 'produces a new array containing the elements for which the block returns falsey' do
+      non_rejected_strings = reject(strings) { |string| string.length < 3 }
+      expect(non_rejected_strings).to match_array ['abc']
+
+      non_rejected_numbers = reject(numbers) { |number| number > 2 }
+      expect(non_rejected_numbers).to match_array [1, 2]
     end
   end
 

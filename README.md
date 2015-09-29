@@ -1,7 +1,7 @@
 # Implementing Enumerable Methods
 
 ## Summary
-In this challenge, we're going to recreate the functionality of some of Ruby's more commonly used enumerable methods.  The behaviors that we will be working with are common across different languages, not just Ruby.  We want to be familiar with how programmers commonly work with collections of objects, like arrays.  
+In this challenge, we're going to recreate the functionality of some of Ruby's more commonly used enumerable methods.  The behaviors that we will be working with are common across different languages, not just Ruby.  We want to be familiar with how programmers commonly work with collections of objects, like arrays.
 
 Going forward through DBC we'll be using Ruby's built-in enumerable methods, but creating similar methods ourselves will help us to understand what's going on behind the scenes.  It will also give us practice writing methods that yield to blocks.
 
@@ -85,19 +85,7 @@ map(numbers) { |n| n.to_s + 'a' }
 Tests for the behavior of the `map` method have been written to mimic the behavior of Ruby's [`Enumerable#map`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-map).
 
 
-### Release 2: Reject
-```ruby
-numbers = [4, 5, 6]
-# => [4, 5, 6]
-reject(numbers) { |n| n < 5 }
-# => [5, 6]
-```
-*Figure 6*.  Example usage of the map method we'll write.
-
-Tests for the behavior of the `reject` method have been written to mimic the behavior of Ruby's [`Enumerable#reject`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-reject).
-
-
-### Release 3: Select
+### Release 2: Select
 ```ruby
 numbers = [4, 5, 6]
 # => [4, 5, 6]
@@ -107,6 +95,18 @@ select(numbers) { |n| n < 6 }
 *Figure 7*.  Example usage of the map method we'll write.
 
 Tests for the behavior of the `select` method have been written to mimic the behavior of Ruby's [`Enumerable#select`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-select).
+
+
+### Release 3: Reject
+```ruby
+numbers = [4, 5, 6]
+# => [4, 5, 6]
+reject(numbers) { |n| n < 5 }
+# => [5, 6]
+```
+*Figure 6*.  Example usage of the map method we'll write.
+
+Tests for the behavior of the `reject` method have been written to mimic the behavior of Ruby's [`Enumerable#reject`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-reject).
 
 
 ### Release 4: All?  *(optional)*
