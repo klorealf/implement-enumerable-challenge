@@ -1,19 +1,26 @@
-def find(collection, &block)
+#each is already implemented as an example, check the test for it too!
+def each(array)
+  array.length.times do |i|
+    yield(array[i])
+  end
 end
 
-def map(collection, &block)
+def find(array)
 end
 
-def reject(collection, &block)
+def map(array)
 end
 
-def select(collection, &block)
+def reject(array)
+end
+
+def select(array)
 end
 
 # Coding all? is optional.
-def all?(collection, &block)
+def all?(array)
 end
 
 # Coding reduce is optional.
-def reduce(collection, starting_value = nil, &block)
+def reduce(array, starting_value = nil)
 end

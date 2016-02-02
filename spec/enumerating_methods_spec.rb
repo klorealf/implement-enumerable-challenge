@@ -2,20 +2,14 @@ require_relative '../enumerating_methods'
 
 describe 'enumerating behaviors' do
 
-  # The only Ruby methods we may call on an array are
-  # :length to get the number of elements in the array
-  # and :[] to get an element at a specific index.
-  banned_methods = Enumerable.instance_methods(false) + Array.instance_methods(false) - [:[], :length]
-
   let(:strings) { ['a', 'ab', 'abc'] }
   let(:numbers) { [1, 2, 3] }
 
-  # This ensures that solutions do not make use of
-  # Ruby's built in each method and enumerable methods.
-  before(:each) do
-    banned_methods.each do |banned_method|
-      allow(strings).to receive(banned_method) { raise "We may not use the Ruby method ##{banned_method} in our solution." }
-      allow(numbers).to receive(banned_method) { raise "We may not use the Ruby method ##{banned_method} in our solution." }
+  describe 'each' do
+    it 'runs the block on each element in the array' do
+      sum = 0
+      each(numbers) { |number| sum += number }
+      expect(sum).to eq(6)
     end
   end
 
@@ -104,6 +98,20 @@ describe 'enumerating behaviors' do
 
     it 'does not not change the collection' do
       expect { reduce(strings) { |aggregate, string| aggregate + string } }.to_not change { strings }
+    end
+  end
+
+  # The only Ruby methods we may call on an array are
+  # :length to get the number of elements in the array
+  # and :[] to get an element at a specific index.
+  banned_methods = Enumerable.instance_methods(false) + Array.instance_methods(false) - [:[], :length]
+
+  # This ensures that solutions do not make use of
+  # Ruby's built in each method and enumerable methods.
+  before(:each) do
+    banned_methods.each do |banned_method|
+      allow(strings).to receive(banned_method) { raise "We may not use the Ruby method ##{banned_method} in our solution." }
+      allow(numbers).to receive(banned_method) { raise "We may not use the Ruby method ##{banned_method} in our solution." }
     end
   end
 end
