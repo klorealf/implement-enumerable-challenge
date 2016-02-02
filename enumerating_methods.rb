@@ -1,7 +1,9 @@
 #each is already implemented as an example, check the test for it too!
 def each(array)
-  array.length.times do |i|
+  i = 0
+  while i < array.length
     yield(array[i])
+    i += 1
   end
 end
 

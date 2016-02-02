@@ -68,7 +68,7 @@ Behind the scenes, `select` ran our blocks using the keyword `yield`. As we writ
 
 
 ### Restrictions:  Do Not Use Most Array and Enumerable Methods
-In this challenge, we're not going to utilize much of Ruby's built-in array functionality.  We're only allowed to call two methods on array objects:  `#[]` and `#length`. We are free to use other Ruby keywords and methods. For example, we'll need to loop through the array so we might consider `loop`, `while`, or `Fixnum#times`.
+In this challenge, we're not going to utilize much of Ruby's built-in array functionality.  We're only allowed to call two methods on array objects:  `#[]` and `#length`. We are free to use other Ruby keywords and methods. For example, we'll need to loop through the array so we might consider `loop` or  `while`.
 
 ```ruby
 numbers = [1, 6, 3, 7, 9]
