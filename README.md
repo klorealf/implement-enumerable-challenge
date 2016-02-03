@@ -81,11 +81,8 @@ numbers.length
 
 ## Releases
 
-## Tests
-Tests are written for all of the releases in this challenge. Make sure you read a release's tests before you start coding it.
-
-## Yield
-Don't hesitate to refer back to the links on yield mentioned previously if you get stuck. You'll also find a example implementation of `each` in `enumerating_methods.rb` with accompanying tests that demonstrate the use of yield.
+### Pre-release:  The Code Base
+In the file `enumerating_methods.rb`, we'll find an example implementation for an `each` method that demonstrate the use of yield—don't hesitate to refer back to the links on yield listed in the *Summary* if anything is unclear or we get stuck.  Tests are also provided for the `each` method and each of the additional methods we'll write.  Read through the tests.  For each release, ensure that we can describe the behavior of the method before writing the code.
 
 ### Release 0: Implement find
 We'll work through the enumerable behaviors one at a time, beginning with searching for a single element in a collection.  We are going to mimic the behavior of Ruby's [`Enumerable#find`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-find) method.  What does the Ruby method do?  We'll want to mimic that behavior in our own method:
