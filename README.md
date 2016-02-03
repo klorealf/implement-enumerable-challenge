@@ -5,7 +5,7 @@ In this challenge, we're going to recreate the functionality of some of Ruby's m
 
 Writing these enumerable methods ourselves will help us understand what's going on behind the scenes.  It will also give us practice writing methods that yield to blocks.
 
-This challenge assumes that we're at least somewhat familiar with Ruby's `Enumerable` module, specifically `find`, `map`, `select` and `reject`.  Since we'll be re-creating these methods, you should be comfortable with what they're doing conceptually. If you're not, look at the documentation for them in the [Ruby Docs](http://ruby-doc.org/core-2.2.3/Enumerable.html) and read up.
+This challenge assumes that we're at least somewhat familiar with Ruby's `Enumerable` module, specifically `find`, `map`, `select` and `reject`.  Since we'll be re-creating these methods, you should be comfortable with what they're doing conceptually. If you're not, look at the documentation for them in the [Ruby Docs](http://ruby-doc.org/core-2.2.3/Enumerable.html) and read up. You might also open `irb` to test these methods and get a feel for how they work.
 
 We'll also look at some examples of using these methods below, and there are accompanying tests in the `spec` folder to help guide you each step of the way.
 
@@ -54,7 +54,7 @@ Given a collection of numbers, we could use `#select` to get a new collection th
 But we could just as easily use the same method to only select strings in an array that begin with "a":
 
 ```ruby
-["hello", "apple", "aardvark"].select { |number| number.start_with?("a") }
+["hello", "apple", "aardvark"].select { |word| word.start_with?("a") }
 # => ["apple", "aardvark"]
 ```
 
@@ -68,7 +68,7 @@ Behind the scenes, `select` ran our blocks using the keyword `yield`. As we writ
 
 
 ### Restrictions:  Do Not Use Most Array and Enumerable Methods
-In this challenge, we're not going to utilize much of Ruby's built-in array functionality.  We're only allowed to call two methods on array objects:  `#[]` and `#length`. We are free to use other Ruby keywords and methods. For example, we'll need to loop through the array so we might consider `loop` or  `while`.
+In this challenge, we're not going to utilize much of Ruby's built-in array functionality. When we're using an array, we're only going to use `Array#[]` and `Array#length`. When we need to loop through the array we might consider `loop` or  `while`.
 
 ```ruby
 numbers = [1, 6, 3, 7, 9]
@@ -83,6 +83,9 @@ numbers.length
 
 ## Tests
 Tests are written for all of the releases in this challenge. Make sure you read a release's tests before you start coding it.
+
+## Yield
+Don't hesitate to refer back to the links on yield mentioned previously if you get stuck. You'll also find a example implementation of `each` in `enumerating_methods.rb` with accompanying tests that demonstrate the use of yield.
 
 ### Release 0: Implement find
 We'll work through the enumerable behaviors one at a time, beginning with searching for a single element in a collection.  We are going to mimic the behavior of Ruby's [`Enumerable#find`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-find) method.  What does the Ruby method do?  We'll want to mimic that behavior in our own method:
