@@ -1,113 +1,163 @@
 # Implementing Enumerable Methods
 
 ## Summary
-In this challenge, we're going to recreate the functionality in some of Ruby's most commonly used enumerable methods.  Where Ruby provides an `Enumerable#select` method, we're going to write a `MyEnumerable#my_select` method.
+In this challenge, we're going to recreate the functionality of some of Ruby's more commonly used enumerable methods (`map`, `select`, etc).  These kinds of methods are powerful tools that can be found in many languages, not just Ruby.
 
-Going forward through DBC we'll be using Ruby's built-in enumerable methods, but creating these methods ourselves will help us to understand what's going on behind the scenes.  It will also give us practice writing methods that yield to blocks.
+Writing these enumerable methods ourselves will help us understand what's going on behind the scenes.  It will also give us practice writing methods that yield to blocks.
 
-This challenge assumes that we're at least somewhat familiar with Ruby's `Enumerable` module.  We won't be using it directly, but we should conceptually understand what it is and some of the behaviors that it provides for working with collections (e.g., arrays and hashes).  Some of the more critical points are detailed in the sections that follow.
+This challenge assumes that we're at least somewhat familiar with Ruby's `Enumerable` module, specifically `find`, `map`, `select` and `reject`.  Since we'll be re-creating these methods, you should be comfortable with what they're doing conceptually. If you're not, look at the documentation for them in the [Ruby Docs](http://ruby-doc.org/core-2.2.3/Enumerable.html) and read up. You might also open `irb` to test these methods and get a feel for how they work.
 
-
-### `MyArray` and `MyEnumerable`
-We're going to be working with a custom class, `MyArray` (see file `my_array.rb`).  It acts just like a normal array, but it has some additional behaviors.  For starters, the `MyArray` class includes the `MyEnumerable` module wherein we'll be defining our versions of the enumerable methods.
-
-`MyArray` also defines an instance method: `#my_each`.  Similarly to how Ruby's enumerable methods depend on objects responding to `#each`, our enumerable methods are going to rely on objects having a `#my_each` method.
-
-We'll be writing our own enumerable methods in the `MyEnumerable` module (see file `source/my_enumerable.rb`).  Empty method definitions have been provided for us.  We need to code the behavior for each method.
-
+We'll also look at some examples of using these methods below, and there are accompanying tests in the `spec` folder to help guide you each step of the way.
 
 ### Blocks
-When we call most enumerable methods, we generally pass a block.  The enumerable methods themselves are pretty generic and are made to be used in different circumstances.  For example, `Enumerable#reject` will return a subset of a collection where some condition is not met.
 
-Given a collection of numbers, I could use `#reject` to get a new collection where all of the even numbers were removed:
+To complete this challenge we'll be using blocks. Blocks are small chunks of code you can give a method to be run later. They can be declared with a `do/end`:
 
 ```ruby
-[1,2,3].reject { |number| number.even? }
+do |element|
+  element * 2
+end
+```
+
+or with curly braces:
+
+```ruby
+{ |element| element + "!" }
+```
+
+You've probably already used blocks, but not by themselves. They usually work with a method.
+
+```ruby
+[1,2,3].map do |element|
+  element * 2
+end
+```
+
+```ruby
+["hi", "hello", "hola"].map { |element| element + "!" }
+```
+
+As we can see, if we want to pass a block to a method we have to put the block right after the method call.
+
+This challenge is all about exploring why blocks can be useful to us, and how we can use them.
+
+#### Blocks in Enumerables
+When we call enumerable methods, we generally pass a block.  The enumerable methods themselves are pretty generic and are made to be used in different circumstances.  For example, `Enumerable#select` will return a subset of a collection, including only the elements for which some condition is met.
+
+Given a collection of numbers, we could use `#select` to get a new collection that includes only the odd numbers:
+
+```ruby
+[1,2,3].select { |number| number.odd? }
 # => [1, 3]
 ```
-*Figure 1*.  Example using `Enumerable#reject`.
 
-But I could also use `#reject` with a collection of arrays to reject the arrays with more than five elements.  Or with a collection of ... well, a collection of any objects ...
+But we could just as easily use the same method to only select strings in an array that begin with "a":
 
-We use the blocks to define the specifics for how the enumerable method should run.  Each element in the collection is passed to the block, and the block is evaluated.  In Figure 1, `1`, `2`, and `3` were each passed to the block as `number`.  Of course, each method will do something different with the values returned from the block.
+```ruby
+["hello", "apple", "aardvark"].select { |word| word.start_with?("a") }
+# => ["apple", "aardvark"]
+```
 
-As we write our versions of the enumerable methods, we'll want to understand how blocks are passed to methods and referenced in the method definitions.  These links might prove helpful if these concepts are new or a refresher is in order.
+In the examples above we passed a block, and `select` ran that block whenever it needed to decide if an element should be in the new array or not.
+
+Behind the scenes, `select` ran our blocks using the keyword `yield`. As we write our versions of the enumerable methods, we'll want to understand more about how blocks are passed to methods and how the methods run those blocks.  These links might prove helpful if these concepts are new or a refresher is in order.
 
 * [Methods can Implicitly Take a Block](http://www.skorks.com/2013/04/ruby-ampersand-parameter-demystified/#theimplicitblock)
 * [Blocks and Yield in Ruby](http://stackoverflow.com/questions/3066703/blocks-and-yields-in-ruby)
 * [The Building Blocks of Ruby](http://yehudakatz.com/2010/02/07/the-building-blocks-of-ruby/)
 
 
-### Do Not Use Enumerable Methods
-Do not use Ruby's built-in `#each` method or the actual `Enumerable` methods.  In defining our methods, we may call any method that begins with `my_`.  In other words, the methods we're writing ourselves.  `MyArray#my_each` is already implemented for us, and we'll want to make use of it in the methods we write.  Some of the methods can be implemented in terms of *each other*. For example, `#my_select` and `#my_find` do similar things, can we leverage that?
+### Restrictions:  Do Not Use Most Array and Enumerable Methods
+In this challenge, we're not going to utilize much of Ruby's built-in array functionality. When we're using an array, we're only going to use `Array#[]` and `Array#length`. When we need to loop through the array we might consider `loop` or  `while`.
 
-
-##Releases
-###Pre-Release: Test Objects
-In our tests, we'll be working with two distinct objects.  Both of them are instances of our `MyArray` class.
-
-- `strings` which looks like `['a', 'ab', 'abc']`
-- `numbers` which looks like `[1, 2, 3]`
-
-Usually, we want to have one expectation written per test example.  In most of our tests we'll have two expectations:  one for working with our `strings` object and one for working with `numbers`.  We're doing this to help ensure that we aren't unknowingly writing enumerable methods that only work in one specific context.  (see `spec/my_array_spec.rb`)
-
-
-### Release 0: Write the `#my_find` method
+```ruby
+numbers = [1, 6, 3, 7, 9]
+# => [1, 6, 3, 7, 9]
+numbers[2]
+# => 3
+numbers.length
+# => 5
 ```
-$ rspec --example "my find method"
+
+## Releases
+
+### Pre-release:  The Code Base
+In the file `enumerating_methods.rb`, we'll find an example implementation for an `each` method that demonstrate the use of yield—don't hesitate to refer back to the links on yield listed in the *Summary* if anything is unclear or we get stuck.  Tests are also provided for the `each` method and each of the additional methods we'll write.  Read through the tests.  For each release, ensure that we can describe the behavior of the method before writing the code.
+
+### Release 0: Implement find
+We'll work through the enumerable behaviors one at a time, beginning with searching for a single element in a collection.  We are going to mimic the behavior of Ruby's [`Enumerable#find`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-find) method.  What does the Ruby method do?  We'll want to mimic that behavior in our own method:
+
+```ruby
+numbers = [4, 5, 6]
+# => [4, 5, 6]
+find(numbers) { |n| n > 4 }
+# => 5
 ```
-*Figure 2*. Running only the tests defined in the `'my find method'` example group.
 
-We'll work through the enumerable behaviors one at a time, beginning with finding a single element in a collection.  We are going to mimic the behavior of Ruby's [`Enumerable#find`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-find) method.  What does the Ruby method do?
+Tests for the behavior of the `find` method have been written. These tests are organized within an example group with the description `"find"` (look at the second `describe` in  `spec/enumerating_methods_spec.rb`).  We can run _just_ these tests by specifying the name of the example group when running RSpec:
 
-Tests for the behavior of the `#my_find` method have been written. These tests are organized within an example group with the description `my find method` (see Line 46 in `spec/my_array_spec.rb`).  We can run only these tests by specifying the name of the example group when running RSpec (see Figure 2).
-
-
-### Release 1: Write the `#my_map` method
 ```
-$ rspec --example "my map method"
+$ rspec --example "find"
 ```
-*Figure 3*. Running only the tests defined in the `'my map method'` example group.
 
-
-Tests for the behavior of the `#my_map` method have been written to mimic the behavior of Ruby's [`Enumerable#map`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-map).
-
-
-### Release 2: Write the `#my_reject` method
+### Release 1: Implement map
+```ruby
+numbers = ["hi", "hello", "how are you"]
+# => ["hi", "hello", "how are you"]
+map(numbers) { |greeting| greeting.upcase + "!" }
+# => ["HI!", "HELLO!", "HOW ARE YOU!"]
 ```
-$ rspec --example "my reject method"
+
+Tests for the behavior of the `map` method have been written to mimic the behavior of Ruby's [`Enumerable#map`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-map).
+
+
+### Release 2: Implement select
+```ruby
+numbers = [4, 5, 6]
+# => [4, 5, 6]
+select(numbers) { |n| n < 6 }
+# => [4, 5]
 ```
-*Figure 4*. Running only the tests defined in the `'my reject method'` example group.
 
-Tests for the behavior of the `#my_reject` method have been written to mimic the behavior of Ruby's [`Enumerable#reject`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-reject).
+Tests for the behavior of the `select` method have been written to mimic the behavior of Ruby's [`Enumerable#select`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-select).
 
 
-### Release 3: Write the `#my_select` method
+### Release 3: Implement reject
+```ruby
+numbers = [4, 5, 6]
+# => [4, 5, 6]
+reject(numbers) { |n| n < 5 }
+# => [5, 6]
 ```
-$ rspec --example "my select method"
+
+Tests for the behavior of the `reject` method have been written to mimic the behavior of Ruby's [`Enumerable#reject`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-reject).
+
+## Conclusion
+
+We've worked through writing homemade versions of just a sample of Ruby's enumerable methods, and we should understand what each of them does. `#find`, `#select`, `#reject` and `#map` are methods we'll use very regularly, and we need to know them inside and out.  Before moving on to the next challenge, make sure we understand the methods covered in this challenge (ask an instructor if you need help).
+
+If you're hungry for more, try working on the stretches below.
+
+## Stretches
+### Stretch: Implement all?
+```ruby
+numbers = [4, 5, 6]
+# => [4, 5, 6]
+all?(numbers) { |n| n < 6 }
+# => false
+all?(numbers) { |n| n < 7 }
+# => true
 ```
-*Figure 5*. Running only the tests defined in the `'my select method'` example group.
 
-Tests for the behavior of the `#my_select` method have been written to mimic the behavior of Ruby's [`Enumerable#select`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-select).
+Tests for the behavior of the `all?` method have been written to mimic the behavior of Ruby's [`Enumerable#all?`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-all-3F).
 
 
-### Release 4 (*optional*): Write the `#my_all?` method
+### Stretch: Implement reduce
+```ruby
+numbers = [4, 5, 6]
+# => [4, 5, 6]
+reduce(numbers) { |aggregate, n| aggregate + n }
+# => 15
 ```
-$ rspec --example "my all? method"
-```
-*Figure 6*. Running only the tests defined in the `'my all? method'` example group.
 
-Tests for the behavior of the `#my_all?` method have been written to mimic the behavior of Ruby's [`Enumerable#all?`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-all-3F).
-
-
-### Release 5 (*optional*): Write the `#my_reduce` method
-```
-$ rspec --example "my reduce method"
-```
-*Figure 7*. Running only the tests defined in the `'my reduce method'` example group.
-
-Tests for the behavior of the `#my_reduce` method have been written to mimic the behavior of Ruby's [`Enumerable#reduce`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-reduce).  We'll be writing a simplified version.  The Ruby method can be called in four different ways with different combinations of arguments.  Our method will be callable in only two different, related ways.
-
-
-##Conclusion
-We've worked through writing homemade versions of just a sample of Ruby's enumerable methods, and we should understand what each of them does.  These particular methods happen to be some that we'll commonly see and use, so we want to be very familiar with them.  After completing this challenge, we should, in particular, definitely know what the `#find`, `#select`, and `#map` methods do.  These are methods we'll use very regularly, and we need to know them inside and out.  Before moving on to the next challenge, make sure we understand the methods covered in this challenge.
+Tests for the behavior of the `reduce` method have been written to mimic the behavior of Ruby's [`Enumerable#reduce`](http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-reduce).  The Ruby method can be called in four different ways with different combinations of arguments. Our method will only be callable one way; remember we want to understand the basic concept of what it means to reduce a collection.
