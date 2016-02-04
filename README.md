@@ -102,9 +102,9 @@ $ rspec --example "find"
 
 ### Release 1: Implement map
 ```ruby
-numbers = ["hi", "hello", "how are you"]
+greetings = ["hi", "hello", "how are you"]
 # => ["hi", "hello", "how are you"]
-map(numbers) { |greeting| greeting.upcase + "!" }
+map(greetings) { |greeting| greeting.upcase + "!" }
 # => ["HI!", "HELLO!", "HOW ARE YOU!"]
 ```
 
