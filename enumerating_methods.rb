@@ -21,6 +21,13 @@ def find(array)
 end
 
 def map(array)
+  c_d = []
+  i = 0
+  while i < array.length
+    c_d << yield(array[i])
+    i += 1
+  end
+  c_d
 end
 
 def reject(array)
