@@ -2,13 +2,24 @@
 def each(array)
   i = 0
   while i < array.length
-    yield(array[i])
+     yield(array[i])
     i += 1
   end
 end
 
 def find(array)
+  i = 0
+  while i < array.length
+    if yield(array[i])
+     return array[i]
+    else
+      i += 1
+    end
+  end
 end
+#strings = ['a', 'ab', 'abc']
+#result = find(strings) { |string| string }
+#p result
 
 def map(array)
 end
