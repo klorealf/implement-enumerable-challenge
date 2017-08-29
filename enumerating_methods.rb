@@ -32,9 +32,27 @@ def map(array)
 end
 
 def reject(array)
+  res_array = []
+  i = 0
+  while i < array.length
+    if yield(array[i]) == false
+      res_array << array[i]
+    end
+  i += 1
+  end
+  return res_array
 end
 
 def select(array)
+  res_array = []
+  i = 0
+  while i < array.length
+    if yield(array[i]) == true
+      res_array << array[i]
+    end
+  i += 1
+  end
+  return res_array
 end
 
 # Coding all? is optional.
