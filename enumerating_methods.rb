@@ -61,9 +61,12 @@ end
 
 # Coding reduce is optional.
 def reduce(array, starting_value = nil)
-  c_d = []
+  arr = []
   i = 0
   while i < array.length
-  i += 1
+    arr << yield(array[i] + array[i+1])
+    i += 1
   end
+  # arr.join("")
+  arr
 end
