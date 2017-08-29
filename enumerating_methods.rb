@@ -49,8 +49,21 @@ end
 
 # Coding all? is optional.
 def all?(array)
+  i = 0
+  while i < array.length
+    if !yield(array[i])
+      return false
+    end
+  i += 1
+  end
+  return true
 end
 
 # Coding reduce is optional.
 def reduce(array, starting_value = nil)
+  c_d = []
+  i = 0
+  while i < array.length
+  i += 1
+  end
 end
