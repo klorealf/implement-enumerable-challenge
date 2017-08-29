@@ -7,7 +7,17 @@ def each(array)
   end
 end
 
+
+
+
 def find(array)
+  i = 0
+  while i < array.length
+    if yield(array[i])
+      return array[i]
+    end
+    i += 1
+  end
 end
 
 def map(array)
