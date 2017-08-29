@@ -22,6 +22,13 @@ end
 #p result
 
 def map(array)
+  res_array = Array.new(array.length, 0)
+  i = 0
+  while i < array.length
+     res_array[i] = yield(array[i])
+    i += 1
+  end
+  return res_array
 end
 
 def reject(array)
