@@ -7,9 +7,6 @@ def each(array)
   end
 end
 
-
-
-
 def find(array)
   i = 0
   while i < array.length
@@ -31,9 +28,23 @@ def map(array)
 end
 
 def reject(array)
+  c_d = []
+  i = 0
+  while i < array.length
+    c_d << (array[i]) if !yield(array[i])
+    i += 1
+  end
+  c_d
 end
 
 def select(array)
+  c_d = []
+  i = 0
+  while i < array.length
+    c_d << (array[i]) if yield(array[i])
+    i += 1
+  end
+  c_d
 end
 
 # Coding all? is optional.
