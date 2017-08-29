@@ -55,8 +55,32 @@ def select(array)
   return res_array
 end
 
+def prod(array)
+  prod = 1
+  array.each do |elm|
+    prod = prod * elm
+  end
+  return prod
+end
+
 # Coding all? is optional.
 def all?(array)
+  nb_elts = array.length
+  aux_array = Array.new(nb_elts, 0)
+  i = 0
+  while i < nb_elts
+    if yield(array[i])
+      aux_array[i] = 1
+    end
+    i += 1
+  end
+
+  if prod(aux_array) == 1
+    return true
+  else
+    return false
+  end
+
 end
 
 # Coding reduce is optional.
